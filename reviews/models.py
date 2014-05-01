@@ -8,16 +8,25 @@ class Operator(models.Model):
 	"""Company that runs the websites"""
 	name = models.CharField(max_length=200)
 
+	def __str__(self):
+		return self.name
+
 class Game(models.Model):
 	"""Game available at a website (texas holdem, football etc)"""
 	name = models.CharField(max_length=200)
 	order = models.IntegerField()
+
+	def __str__(self):
+		return self.name
 
 class Language(models.Model):
 	"""Language that a website is available in"""
 	name = models.CharField(max_length=200)
 	native_name = models.CharField(max_length=200)
 	order = models.IntegerField()
+
+	def __str__(self):
+		return self.name
 
 	Meta = OrderMeta
 
@@ -26,9 +35,12 @@ class PaymentOption(models.Model):
 	name = models.CharField(max_length=200)
 	order = models.IntegerField()
 
+	def __str__(self):
+		return self.name
+
 	Meta = OrderMeta
 
-class Site(models.Model):
+class Site(content.models.Content):
 	"""Website such as betfair, betfred etc"""
 	name = models.CharField(max_length=200)
 	rating = models.IntegerField()
@@ -42,15 +54,18 @@ class Site(models.Model):
 
 	operator = models.ForeignKey(Operator)
 	games = models.ManyToManyField(Game)
+	languages = models.ManyToManyField(Language)
 	deposit_options = models.ManyToManyField(PaymentOption, related_name = 'deposit_options')
 	withdrawal_options = models.ManyToManyField(PaymentOption, related_name = 'withdrawal_options')
-	content = models.OneToOneField(content.models.Content)
 
 	def get_latest_offer(self):
 		try:
 			return self.offers[0]
 		except IndexError:
 			return None
+
+	def __str__(self):
+		return self.name
 
 	Meta = OrderMeta
 
