@@ -26,20 +26,12 @@ class SiteAdmin(admin.ModelAdmin):
 		'affiliate_link', 'visible_link', 'rating', 'games', 'deposit_options',
 		'withdrawal_options', 'languages', 'review', 'content')
 
-class OpAdmin(admin.ModelAdmin):
+class DefaultAdmin(admin.ModelAdmin):
 	pass
 
-class GameAdmin(admin.ModelAdmin):
-	pass
+admin.site.register(Operator, DefaultAdmin)
+admin.site.register(Game, DefaultAdmin)
+admin.site.register(PaymentOption, DefaultAdmin)
+admin.site.register(Language, DefaultAdmin)
 
-class PaymentOptionAdmin(admin.ModelAdmin):
-	pass
-
-class LangAdmin(admin.ModelAdmin):
-	pass
-
-admin.site.register(Operator, OpAdmin)
-admin.site.register(Game, GameAdmin)
 admin.site.register(Site, SiteAdmin)
-admin.site.register(PaymentOption, PaymentOptionAdmin)
-admin.site.register(Language, LangAdmin)
