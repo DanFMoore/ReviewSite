@@ -1,11 +1,18 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
+from content.models import Page
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the poll index.")
+    latest_page_list = Page.objects.order_by('-slug')[:5]
 
-def detail(request, poll_id):
-    return HttpResponse("You're looking at poll %s." % poll_id)
+    context = {
+        'latest_page_list': latest_page_list,
+    }
+
+    return render(request, 'content/index.html', context)
+
+def detail(request, page_id):
+    page = get_object_or_404(Page, pk=page_id)
+    return render(request, 'content/detail.html', {'page': page})
 
 def results(request, poll_id):
     return HttpResponse("You're looking at the results of poll %s." % poll_id)

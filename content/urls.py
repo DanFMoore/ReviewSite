@@ -3,10 +3,10 @@ from content import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    # ex: /polls/5/
-    url(r'^(?P<poll_id>\d+)/$', views.detail, name='detail'),
-    # ex: /polls/5/results/
-    url(r'^(?P<poll_id>\d+)/results/$', views.results, name='results'),
-    # ex: /polls/5/vote/
-    url(r'^(?P<poll_id>\d+)/vote/$', views.vote, name='vote'),
+    # ex: /5/
+    url(r'^(?P<page_id>\d+)/$', views.detail, name='detail'),
+    # ex: /5/results/
+    url(r'^(?P<page_id>\d+)/results/$', views.results, name='results'),
+    # ex: /5/vote/
+    url(r'^(?P<page_id>\d+)/vote/$', views.vote, name='vote'),
 ]
