@@ -1,5 +1,5 @@
 from django.db import models
-import content
+from content.models import Content
 
 class OrderMeta:
 	ordering = ['order']
@@ -40,7 +40,7 @@ class PaymentOption(models.Model):
 
 	Meta = OrderMeta
 
-class Site(content.models.Content):
+class Site(Content):
 	"""Website such as betfair, betfred etc"""
 	name = models.CharField(max_length=200)
 	rating = models.IntegerField()

@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 from content.models import Page
 
 def index(request):
@@ -11,8 +12,12 @@ def index(request):
     return render(request, 'content/index.html', context)
 
 def detail(request, page_id):
-    page = get_object_or_404(Page, pk=page_id)
-    return render(request, 'content/detail.html', {'page': page})
+    raise Http404
+    return render(request, 'content/detail.html', {'page': page_id})
+
+def fallback(request, fall_id):
+    raise Http404
+    return render(request, 'content/fallback.html', {'id': fall_id})
 
 def results(request, poll_id):
     return HttpResponse("You're looking at the results of poll %s." % poll_id)
