@@ -1,26 +1,13 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
-from content.models import Page
+from content.models import Page, SystemPage
 
 def index(request):
-    latest_page_list = Page.objects.order_by('-slug')[:5]
+    """Display the home page"""
+    page = get_object_or_404(SystemPage, name='Home Page')
+    return render(request, 'content/index.html', {'page': page})
 
-    context = {
-        'latest_page_list': latest_page_list,
-    }
-
-    return render(request, 'content/index.html', context)
-
-def detail(request, page_id):
-    raise Http404
-    return render(request, 'content/detail.html', {'page': page_id})
-
-def fallback(request, fall_id):
-    raise Http404
-    return render(request, 'content/fallback.html', {'id': fall_id})
-
-def results(request, poll_id):
-    return HttpResponse("You're looking at the results of poll %s." % poll_id)
-
-def vote(request, poll_id):
-    return HttpResponse("You're voting on poll %s." % poll_id)
+def page(request, slug):
+    """Display a normal page"""
+    page = get_object_or_404(Page, slug=slug)
+    return render(request, 'content/page.html', {'page': page})

@@ -1,9 +1,11 @@
-this one
+{% load staticfiles %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'content/style.css' %}" />
 
 {% if latest_page_list %}
     <ul>
     {% for page in latest_page_list %}
-        <li><a href="/pages/{{ page.id }}/">{{ page.title }}</a></li>
+        <li><p>dsdf <a href="/pages/{{ page.id }}/">{{ page.title }}</a></p></li>
     {% endfor %}
     </ul>
 {% else %}

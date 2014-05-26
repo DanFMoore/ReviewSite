@@ -52,7 +52,7 @@ class Site(Content):
 	order = models.IntegerField()
 	slug = models.SlugField()
 
-	operator = models.ForeignKey(Operator)
+	operator = models.ForeignKey(Operator, related_name='sites')
 	games = models.ManyToManyField(Game)
 	languages = models.ManyToManyField(Language)
 	deposit_options = models.ManyToManyField(PaymentOption, related_name = 'deposit_options')
@@ -74,7 +74,7 @@ class Attribute(models.Model):
 	key = models.CharField(max_length=200)
 	value = models.CharField(max_length=200)
 	order = models.IntegerField()
-	site = models.ForeignKey(Site)
+	site = models.ForeignKey(Site, related_name='attributes')
 
 	Meta = OrderMeta
 
@@ -84,7 +84,7 @@ class Offer(models.Model):
 	date_added = models.DateTimeField()
 	affiliate_link = models.CharField(max_length=200)
 	visible_link = models.CharField(max_length=200)
-	site = models.ForeignKey(Site)
+	site = models.ForeignKey(Site, related_name='offers')
 	order = models.IntegerField()
 
 	Meta = OrderMeta
@@ -99,8 +99,8 @@ class ProAndCon(models.Model):
 
 class Pro(ProAndCon):
 	"""A plus point for the website"""
-	site = models.ForeignKey(Site)
+	site = models.ForeignKey(Site, related_name='pros')
 
 class Con(ProAndCon):
 	"""A bad point for the website"""
-	site = models.ForeignKey(Site)
+	site = models.ForeignKey(Site, related_name='cons')

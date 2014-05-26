@@ -26,3 +26,5 @@ for app_name in INSTALLED_APPS:
 # this allows multiple views to use the same url pattern
 url_list = multiurl(*url_list, catch = (Http404, ContinueResolving))
 urlpatterns = patterns('', url(r'^admin/', include(admin.site.urls)), url_list)
+
+handler404 = 'django.views.defaults.page_not_found'

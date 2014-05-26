@@ -21,17 +21,14 @@ class SiteAdmin(admin.ModelAdmin):
 	fields = ('name', 'slug', 'order',
 		#page content fields
 		'title', 'html_title', 'meta_desc', 'keywords',
-		#emd page content fields
+		#end page content fields
 		'operator', 'date_added', 'date_established',
 		'affiliate_link', 'visible_link', 'rating', 'games', 'deposit_options',
 		'withdrawal_options', 'languages', 'review', 'content')
 
-class DefaultAdmin(admin.ModelAdmin):
-	pass
-
-admin.site.register(Operator, DefaultAdmin)
-admin.site.register(Game, DefaultAdmin)
-admin.site.register(PaymentOption, DefaultAdmin)
-admin.site.register(Language, DefaultAdmin)
+admin.site.register(Operator, admin.ModelAdmin)
+admin.site.register(Game, admin.ModelAdmin)
+admin.site.register(PaymentOption, admin.ModelAdmin)
+admin.site.register(Language, admin.ModelAdmin)
 
 admin.site.register(Site, SiteAdmin)
