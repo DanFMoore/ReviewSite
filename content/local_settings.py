@@ -1,0 +1,3 @@
+TEMPLATE_CONTEXT_PROCESSORS = TEMPLATE_CONTEXT_PROCESSORS + (
+    'content.context.not_found',
+)

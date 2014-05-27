@@ -40,11 +40,20 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     'reviews_skin',
-    'base_skin',
 
     'content', 
     'reviews',   
 )
+
+TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS
+
+#load per app settings here so that this settings file can override them
+for app in INSTALLED_APPS:
+    local_settings = os.path.join(BASE_DIR, app, 'local_settings.py')
+
+    if os.path.isfile(local_settings):
+        exec(open(local_settings).read())
+
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -90,7 +99,3 @@ SITE_ID = 1
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_URL = '/static/'
-
-TEMPLATE_CONTEXT_PROCESSORS = global_settings.TEMPLATE_CONTEXT_PROCESSORS + (
-    'content.context.not_found',
-)

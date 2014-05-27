@@ -7,7 +7,7 @@ import copy
 
 class Content(models.Model):
 	"""Basic page data which can be used by other modules"""
-	interpolatable_attrs = (
+	renderable_attrs = (
 		'title', 'html_title', 'meta_desc', 'keywords', 'content'
 	)
 
@@ -17,22 +17,23 @@ class Content(models.Model):
 	keywords = models.CharField(max_length=200)
 	content = models.TextField()
 
-	def interpolate(self, placeholders):
+	def render(self, values):
 		"""Replace the placeholder names with the values and return
-		a cloned instance containing the interpolated values"""
+		a cloned instance containing the rendered values"""
 		cloned = copy.copy(self)
+		context = Context(values)
 
-		for attr in self.interpolatable_attrs:
-			value = getattr(self, attr)
-			value = self.interpolate_value(value, placeholders)
-			setattr(cloned, attr, value)
+		for attr in self.renderable_attrs:
+			string = getattr(self, attr)
+			string = self.render_string(string, context)
+			setattr(cloned, attr, string)
 
 		return cloned
 
-	def interpolate_value(self, value, placeholders):
-		"""Interpolate a single value"""
-		t = Template(value)
-		return t.render(Context(placeholders))
+	def render_string(self, string, context):
+		"""Render a single value in a string"""
+		t = Template(string)
+		return t.render(context)
 
 	class Meta:
 		abstract = True
@@ -57,7 +58,7 @@ class SystemPage(Content):
 	name = models.CharField(max_length=200)
 
 	@property
-	def url():
+	def url(self):
 		"""System pages don't really have a url,
 		apart from the home page, so just link to that"""
 		return reverse('index')

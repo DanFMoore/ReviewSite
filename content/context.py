@@ -9,7 +9,8 @@ class NotFound:
         if not hasattr(self, 'page'):
             self.page = models.SystemPage.objects.get(name='404 Page')
 
-        return {'not_found_page': self.page}
+        rendered = self.page.render({'request_path': request.path})
+        return {'not_found_page': rendered}
 
 #make object appear as function
 not_found = NotFound()
