@@ -15,11 +15,11 @@ url_list = []
 from bookies.settings import INSTALLED_APPS
 
 for app_name in INSTALLED_APPS:
-	try:
-		app = __import__(app_name, fromlist=['urls'])
-		url_list = url_list + app.urls.urlpatterns
-	except AttributeError:
-		pass
+    try:
+        app = __import__(app_name, fromlist=['urls'])
+        url_list = url_list + app.urls.urlpatterns
+    except AttributeError:
+        pass
 
 # use multiurl so that if any view raises a 404, any other view that
 # matches the same url pattern can be called until a 404 is not raised

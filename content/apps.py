@@ -8,7 +8,7 @@ class ContentConfig(AppConfig):
     name = 'content'
 
     def ready(self):
-        """Register receiver to create initial system pages"""
+        """Register receiver to create initial system pages, on site install"""
 
         @receiver(post_migrate, weak=False, sender=self)
         def install_initial_records(sender, **kwargs):
