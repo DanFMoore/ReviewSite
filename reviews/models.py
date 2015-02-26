@@ -57,6 +57,7 @@ class Site(Content):
     visible_link = models.CharField(max_length=200)
     order = models.IntegerField()
     slug = models.SlugField()
+    logo = models.ImageField(null=True, blank=True, upload_to="sites/logos/")
 
     operator = models.ForeignKey(Operator, related_name='sites')
     games = models.ManyToManyField(Game)

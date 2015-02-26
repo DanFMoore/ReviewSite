@@ -18,7 +18,7 @@ class OfferInline(admin.TabularInline):
 class SiteAdmin(admin.ModelAdmin):
     inlines = [AttributeInline, ProInline, ConInline, OfferInline]
 
-    fields = ('name', 'slug', 'order',
+    fields = ('name', 'slug', 'logo', 'order',
         #page content fields
         'title', 'html_title', 'meta_desc', 'keywords',
         #end page content fields
